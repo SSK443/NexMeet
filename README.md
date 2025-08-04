@@ -17,3 +17,10 @@ A modern video conferencing web app built with the MERN stack, TypeScript, Tailw
 
 ## License
 MIT
+
+mongodb
+password- hgdyzhNwU1UpFGo8
+username- surajskumar443
+nameofcluster -NexMeetCluster
+
+mongodb+srv://surajskumar443:hgdyzhNwU1UpFGo8@nexmeetcluster.bo9nfhy.mongodb.net/?retryWrites=true&w=majority&appName=NexMeetCluster
