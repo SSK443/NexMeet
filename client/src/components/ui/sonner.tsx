@@ -1,8 +1,8 @@
-import { useTheme } from "next-themes"
-import { Toaster as Sonner, ToasterProps } from "sonner"
+import { Toaster as Sonner, ToasterProps } from "sonner";
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
+  // Fallback to 'system' theme, relying on Tailwind's dark mode
+  const theme = "system"; // Default to system; Tailwind handles dark mode via 'dark' class
 
   return (
     <Sonner
@@ -10,14 +10,14 @@ const Toaster = ({ ...props }: ToasterProps) => {
       className="toaster group"
       style={
         {
-          "--normal-bg": "var(--popover)",
-          "--normal-text": "var(--popover-foreground)",
-          "--normal-border": "var(--border)",
+          "--normal-bg": "var(--popover)", // Matches shadcn/ui popover background
+          "--normal-text": "var(--popover-foreground)", // Matches shadcn/ui text
+          "--normal-border": "var(--border)", // Matches shadcn/ui border
         } as React.CSSProperties
       }
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Toaster }
+export { Toaster };

@@ -20,7 +20,12 @@ interface Poll {
   options: { text: string; votes: number }[];
 }
 
-interface Store {
+interface AuthState {
+  token: string | null;
+  setToken: (token: string) => void;
+}
+
+interface Store extends AuthState {
   stream: MediaStream | null;
   setStream: (stream: MediaStream | null) => void;
   name: string;
@@ -52,6 +57,14 @@ interface Store {
 }
 
 export const useStore = create<Store>((set, get) => ({
+  // Auth state
+  token: localStorage.getItem("token"),
+  setToken: (token) => {
+    localStorage.setItem("token", token);
+    set({ token });
+  },
+
+  // Meeting state
   stream: null,
   setStream: (stream) => set({ stream }),
   name: "",
