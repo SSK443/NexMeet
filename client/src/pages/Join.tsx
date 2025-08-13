@@ -4,30 +4,29 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { useStore } from "../store";
 import { v4 as uuidv4 } from "uuid";
-import { Toaster } from "../components/ui/sonner"; // Import the custom Toaster
+import { Toaster } from "../components/ui/sonner"; // Use the custom Toaster
 
 export default function Join() {
   const [roomId, setRoomId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { name, setRoomId: setStoreRoomId } = useStore();
-  const toast = Toaster; // Use the Toaster component directly for now (no useToast hook)
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast({
+      Toaster({
         title: "Error",
         description: "Please log in first",
         variant: "destructive",
       });
       navigate("/login");
     }
-  }, [navigate, toast]);
+  }, [navigate]);
 
   const handleCreateRoom = () => {
     if (!name) {
-      toast({
+      Toaster({
         title: "Error",
         description: "Please set a name after logging in",
         variant: "destructive",
@@ -41,7 +40,7 @@ export default function Join() {
 
   const handleJoinRoom = async () => {
     if (!roomId) {
-      toast({
+      Toaster({
         title: "Error",
         description: "Please enter a room ID",
         variant: "destructive",
@@ -50,7 +49,7 @@ export default function Join() {
     }
     const token = localStorage.getItem("token");
     if (!token) {
-      toast({
+      Toaster({
         title: "Error",
         description: "Please log in first",
         variant: "destructive",
@@ -72,14 +71,14 @@ export default function Join() {
         navigate(`/room/${roomId}`);
       } else {
         const data = await res.json();
-        toast({
+        Toaster({
           title: "Error",
           description: data.error || "Invalid room or password",
           variant: "destructive",
         });
       }
     } catch (error) {
-      toast({
+      Toaster({
         title: "Error",
         description: "Failed to join room",
         variant: "destructive",
@@ -112,7 +111,7 @@ export default function Join() {
           Join Room
         </Button>
       </div>
-      <Toaster /> {/* Add the Toaster component to render toasts */}
+      <Toaster /> {/* Render the Toaster component for global toasts */}
     </div>
   );
 }

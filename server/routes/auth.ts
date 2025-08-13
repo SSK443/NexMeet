@@ -2,6 +2,8 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/User";
+import { Room } from "../models/Room"; // Add this import
+import { v4 as uuidv4 } from "uuid";
 
 const router = express.Router();
 
@@ -12,7 +14,8 @@ router.post("/register", async (req, res) => {
     if (existingUser)
       return res.status(400).json({ error: "Email already exists" });
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ email, password: hashedPassword, name });
+    const user = await User.create({ email, password: hashedPassword, name });
+    await Room.create({ roomId: uuidv4(), createdBy: user._id }); // Create a default room
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
     res.status(500).json({ error: "Server error during registration" });
